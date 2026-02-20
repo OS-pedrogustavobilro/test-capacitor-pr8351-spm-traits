@@ -1,4 +1,4 @@
-// swift-tools-version: 5.9
+// swift-tools-version: 6.1
 import PackageDescription
 
 let package = Package(
@@ -19,10 +19,33 @@ let package = Package(
                 .product(name: "Capacitor", package: "capacitor-swift-pm"),
                 .product(name: "Cordova", package: "capacitor-swift-pm")
             ],
-            path: "ios/Sources/PluginWithTraitsPlugin"),
+            path: "ios/Sources/PluginWithTraitsPlugin",
+            swiftSettings: [
+                .define("DEBUG_LOGGING", .when(traits: ["DebugLogging"])),
+                .define("PRIVACY_MANIFEST", .when(traits: ["PrivacyManifest"])),
+                .define("EXTENDED_FEATURES", .when(traits: ["ExtendedFeatures"]))
+            ]
+        ),
         .testTarget(
             name: "PluginWithTraitsPluginTests",
             dependencies: ["PluginWithTraitsPlugin"],
             path: "ios/Tests/PluginWithTraitsPluginTests")
+    ],
+    traits: [
+        .trait(
+            name: "DebugLogging",
+            description: "Enable verbose debug logging for development",
+            enabledTraits: []
+        ),
+        .trait(
+            name: "PrivacyManifest",
+            description: "Include privacy-focused tracking and compliance features",
+            enabledTraits: []
+        ),
+        .trait(
+            name: "ExtendedFeatures",
+            description: "Enable extended plugin features and functionality",
+            enabledTraits: []
+        )
     ]
 )
