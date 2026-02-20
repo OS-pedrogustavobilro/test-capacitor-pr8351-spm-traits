@@ -1,0 +1,14 @@
+{
+  "appId": "io.ionic.starter",
+  "appName": "test-app",
+  "webDir": "dist",
+  "ios": {
+    "spm": {
+      "packageTraits": {
+        "@capacitor/status-bar": ["PrivacyManifest", "SwiftConcurrency", "Debug"],
+        "@capacitor/app": ["PrivacyManifest"],
+        "@capacitor/keyboard": ["SwiftConcurrency", "Testing"]
+      }
+    }
+  }
+}
