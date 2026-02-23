@@ -11,7 +11,7 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/ionic-team/capacitor-swift-pm.git", branch: "main"),
-        .package(url: "https://github.com/ionic-team/capacitor-status-bar.git", from: "8.0.0"),
+        .package(url: "https://github.com/ionic-team/capacitor-status-bar.git", from: "8.0.0", traits: [.defaults, "ExtendedFeatures", "Analytics"]),
         .package(url: "https://github.com/ionic-team/capacitor-app.git", from: "8.0.0"),
         .package(url: "https://github.com/ionic-team/capacitor-haptics.git", from: "8.0.0"),
         .package(url: "https://github.com/ionic-team/capacitor-keyboard.git", from: "8.0.0")
