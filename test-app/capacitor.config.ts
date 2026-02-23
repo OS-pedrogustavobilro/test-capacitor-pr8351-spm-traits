@@ -7,7 +7,8 @@ const config: CapacitorConfig = {
   ios: {
     spm: {
       packageTraits: {
-        '@ospedrobilro/cap-plugin-with-traits': ['.defaults', 'ExtendedFeatures', 'Analytics']
+        '@ospedrobilro/cap-plugin-with-traits': ['.defaults', 'ExtendedFeatures', 'Analytics'],
+        '@capacitor/haptics': []
       }
     }
   }
