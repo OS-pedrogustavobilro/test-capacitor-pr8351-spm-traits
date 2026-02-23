@@ -9,6 +9,23 @@ let package = Package(
             name: "OspedrobilroCapPluginWithTraits",
             targets: ["PluginWithTraitsPlugin"])
     ],
+    traits: [
+        .trait(
+            name: "DebugLogging",
+            description: "Enable verbose debug logging for development",
+            enabledTraits: []
+        ),
+        .trait(
+            name: "PrivacyManifest",
+            description: "Include privacy-focused tracking and compliance features",
+            enabledTraits: []
+        ),
+        .trait(
+            name: "ExtendedFeatures",
+            description: "Enable extended plugin features and functionality",
+            enabledTraits: []
+        )
+    ],
     dependencies: [
         .package(url: "https://github.com/ionic-team/capacitor-swift-pm.git", from: "8.0.0")
     ],
@@ -30,22 +47,5 @@ let package = Package(
             name: "PluginWithTraitsPluginTests",
             dependencies: ["PluginWithTraitsPlugin"],
             path: "ios/Tests/PluginWithTraitsPluginTests")
-    ],
-    traits: [
-        .trait(
-            name: "DebugLogging",
-            description: "Enable verbose debug logging for development",
-            enabledTraits: []
-        ),
-        .trait(
-            name: "PrivacyManifest",
-            description: "Include privacy-focused tracking and compliance features",
-            enabledTraits: []
-        ),
-        .trait(
-            name: "ExtendedFeatures",
-            description: "Enable extended plugin features and functionality",
-            enabledTraits: []
-        )
     ]
 )
