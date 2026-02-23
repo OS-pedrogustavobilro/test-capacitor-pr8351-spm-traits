@@ -1,32 +1,35 @@
 // swift-tools-version: 5.9
 import PackageDescription
 
+// DO NOT MODIFY THIS FILE - managed by Capacitor CLI commands
 let package = Package(
-    name: "TestApp",
-    platforms: [.iOS(.v13)],
+    name: "CapApp-SPM",
+    platforms: [.iOS(.v15)],
     products: [
         .library(
-            name: "TestApp",
-            targets: ["TestApp"])
+            name: "CapApp-SPM",
+            targets: ["CapApp-SPM"])
     ],
     dependencies: [
-        .package(url: "https://github.com/ionic-team/capacitor-swift-pm.git", branch: "main"),
-        .package(url: "https://github.com/ionic-team/capacitor-status-bar.git", from: "8.0.0"),
-        .package(url: "https://github.com/ionic-team/capacitor-app.git", from: "8.0.0"),
-        .package(url: "https://github.com/ionic-team/capacitor-haptics.git", from: "8.0.0"),
-        .package(url: "https://github.com/ionic-team/capacitor-keyboard.git", from: "8.0.0")
+        .package(url: "https://github.com/ionic-team/capacitor-swift-pm.git", exact: "8.1.0"),
+        .package(name: "CapacitorApp", path: "../../../node_modules/@capacitor/app"),
+        .package(name: "CapacitorHaptics", path: "../../../node_modules/@capacitor/haptics"),
+        .package(name: "CapacitorKeyboard", path: "../../../node_modules/@capacitor/keyboard"),
+        .package(name: "CapacitorStatusBar", path: "../../../node_modules/@capacitor/status-bar"),
+        .package(name: "OspedrobilroCapPluginWithTraits", path: "../../../../cap-plugin-with-traits")
     ],
     targets: [
         .target(
-            name: "TestApp",
+            name: "CapApp-SPM",
             dependencies: [
                 .product(name: "Capacitor", package: "capacitor-swift-pm"),
                 .product(name: "Cordova", package: "capacitor-swift-pm"),
-                .product(name: "CapacitorStatusBar", package: "capacitor-status-bar"),
-                .product(name: "CapacitorApp", package: "capacitor-app"),
-                .product(name: "CapacitorHaptics", package: "capacitor-haptics"),
-                .product(name: "CapacitorKeyboard", package: "capacitor-keyboard")
-            ],
-            path: "Sources")
+                .product(name: "CapacitorApp", package: "CapacitorApp"),
+                .product(name: "CapacitorHaptics", package: "CapacitorHaptics"),
+                .product(name: "CapacitorKeyboard", package: "CapacitorKeyboard"),
+                .product(name: "CapacitorStatusBar", package: "CapacitorStatusBar"),
+                .product(name: "OspedrobilroCapPluginWithTraits", package: "OspedrobilroCapPluginWithTraits")
+            ]
+        )
     ]
 )

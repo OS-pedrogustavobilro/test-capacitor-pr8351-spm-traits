@@ -2,6 +2,59 @@
 
 This document lists all Package.swift test files generated for testing the SPM package traits functionality.
 
+## Automated Validation
+
+### Quick Start
+
+Run the validation script to test all cases automatically:
+
+```bash
+cd test-cases
+./validate-tests.sh
+```
+
+The script will:
+1. ✅ Back up your current `test-app/capacitor.config.ts`
+2. 🔄 Run through all test cases (01-10)
+3. ✓ Compare generated vs expected Package.swift files
+4. 📊 Show pass/fail summary
+5. 🔙 **Restore original config** (always, even on failure/interrupt)
+
+### Script Features
+
+- **Safe**: Uses `trap` to ensure cleanup on exit, error, or Ctrl+C
+- **Color-coded**: Green ✓ for pass, Red ✗ for fail
+- **Detailed**: Shows which tests fail with diff suggestions
+- **Guaranteed restore**: Original files always restored
+
+Example output:
+```
+============================================
+   SPM Package Traits Test Validator
+============================================
+
+Backing up original configuration...
+✓ Backup created
+
+Test 01: single-plugin-single-trait
+  ✓ PASSED - Generated Package.swift matches expected
+
+...
+
+============================================
+   Test Summary
+============================================
+Total Tests:  10
+Passed:       10
+Failed:       0
+
+✓ All tests passed!
+
+Cleaning up and restoring original configuration...
+✓ Original capacitor.config.ts restored
+✓ Package.swift restored to original state
+```
+
 ## Quick Reference
 
 | Test Case | Swift Tools Version | Traits Config | File Path |
@@ -136,38 +189,46 @@ For each test case, verify:
 - [ ] Local path dependencies with traits use `path:` parameter correctly
 - [ ] Package structure and other elements remain unchanged
 
-## Running Tests
+## Manual Testing
 
-To test each configuration:
+To manually test a specific case:
 
 ```bash
-# 1. Navigate to your Capacitor project
+# 1. Copy test config
+cp test-cases/01-single-plugin-single-trait/capacitor.config.json test-app/
+
+# 2. Convert JSON to TypeScript format
+# Edit test-app/capacitor.config.json to capacitor.config.ts format:
+# - Add: import type { CapacitorConfig } from '@capacitor/cli';
+# - Add: const config: CapacitorConfig = { ... };
+# - Add: export default config;
+
+# 3. Run sync
 cd test-app
-
-# 2. Copy a test config (example for test case 1)
-cp ../test-cases/01-single-plugin-single-trait/capacitor.config.json ./
-
-# 3. Generate Package.swift
 npx cap sync ios
 
-# 4. Compare generated with expected
+# 4. Compare
 diff ios/App/CapApp-SPM/Package.swift ../test-cases/01-single-plugin-single-trait/Package.swift
+
+# 5. Restore original
+git checkout capacitor.config.ts
+npx cap sync ios
 ```
 
-## Expected vs Actual Comparison
+## Troubleshooting
 
-Use this script to compare all test cases:
+### Script fails to find test-app
+- Ensure you're running from the test-cases directory
+- Check that test-app directory exists at `../test-app`
 
-```bash
-#!/bin/bash
-for i in {0..10}; do
-  case_dir=$(printf "%02d-*" $i | ls -d test-cases/$case_dir 2>/dev/null | head -1)
-  if [ -d "$case_dir" ]; then
-    echo "Testing: $case_dir"
-    # Your comparison logic here
-  fi
-done
-```
+### cap sync fails
+- Install dependencies: `cd test-app && npm install`
+- Check Capacitor CLI is available
+
+### Differences in Package.swift
+- Run the suggested diff command to see exact differences
+- Check for whitespace or formatting issues
+- Verify the expected Package.swift is correct for the test case
 
 ## Key Testing Scenarios Covered
 

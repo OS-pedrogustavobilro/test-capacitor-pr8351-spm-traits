@@ -5,7 +5,7 @@
   "ios": {
     "spm": {
       "packageTraits": {
-        "@ospedrobilro/cap-plugin-with-traits": [".defaults", "ExtendedFeatures", "Analytics"],
+        "@ospedrobilro/cap-plugin-with-traits": [".defaults", "ExtendedFeatures"],
         "@capacitor/haptics": []
       }
     }
