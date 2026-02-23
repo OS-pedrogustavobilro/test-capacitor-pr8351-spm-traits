@@ -44,7 +44,6 @@ import Foundation
         trackDataAccess(operation: "echo", data: value)
         #endif
 
-        print(value)
         return value
     }
 
@@ -62,17 +61,6 @@ import Foundation
         #endif
 
         return transformed
-    }
-
-    // Extended feature: Echo with delay
-    @objc public func echoWithDelay(_ value: String, delay: TimeInterval, completion: @escaping (String) -> Void) {
-        #if DEBUG_LOGGING
-        log("echoWithDelay() called with delay: \(delay)s")
-        #endif
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
-            completion(value)
-        }
     }
     #endif
 
@@ -106,12 +94,12 @@ import Foundation
 
     // MARK: - Debug Logging
 
-    #if DEBUG_LOGGING
     private func log(_ message: String) {
         let timestamp = DateFormatter.localizedString(from: Date(), dateStyle: .none, timeStyle: .medium)
         print("[PluginWithTraits][\(timestamp)] \(message)")
     }
 
+    #if DEBUG_LOGGING
     @objc public func getDebugInfo() -> [String: Any] {
         return [
             "debugEnabled": debugEnabled,

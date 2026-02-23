@@ -1,4 +1,4 @@
-// swift-tools-version: 5.9
+// swift-tools-version: 6.1
 import PackageDescription
 
 // DO NOT MODIFY THIS FILE - managed by Capacitor CLI commands
@@ -16,7 +16,7 @@ let package = Package(
         .package(name: "CapacitorHaptics", path: "../../../node_modules/@capacitor/haptics"),
         .package(name: "CapacitorKeyboard", path: "../../../node_modules/@capacitor/keyboard"),
         .package(name: "CapacitorStatusBar", path: "../../../node_modules/@capacitor/status-bar"),
-        .package(name: "OspedrobilroCapPluginWithTraits", path: "../../../../cap-plugin-with-traits")
+        .package(name: "OspedrobilroCapPluginWithTraits", path: "../../../../cap-plugin-with-traits", traits: ["ExtendedFeatures", "Analytics"])
     ],
     targets: [
         .target(

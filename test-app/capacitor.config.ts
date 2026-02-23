@@ -7,7 +7,7 @@ const config: CapacitorConfig = {
   ios: {
     spm: {
       packageTraits: {
-        '@ospedrobilro/cap-plugin-with-traits': ['DebugLogging', 'PrivacyManifest', 'ExtendedFeatures']
+        '@ospedrobilro/cap-plugin-with-traits': ['ExtendedFeatures', 'Analytics']
       }
     }
   }

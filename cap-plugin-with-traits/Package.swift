@@ -23,8 +23,19 @@ let package = Package(
         .trait(
             name: "ExtendedFeatures",
             description: "Enable extended plugin features and functionality",
+            enabledTraits: ["DebugLogging"]
+        ),
+        .trait(
+            name: "Analytics",
+            description: "Enable analytics and telemetry features",
             enabledTraits: []
-        )
+        ),
+        .trait(
+            name: "Performance",
+            description: "Enable performance optimizations and monitoring",
+            enabledTraits: []
+        ),
+        .default(enabledTraits: ["PrivacyManifest"])
     ],
     dependencies: [
         .package(url: "https://github.com/ionic-team/capacitor-swift-pm.git", from: "8.0.0")
@@ -38,14 +49,35 @@ let package = Package(
             ],
             path: "ios/Sources/PluginWithTraitsPlugin",
             swiftSettings: [
+                // Simple trait conditionals
                 .define("DEBUG_LOGGING", .when(traits: ["DebugLogging"])),
                 .define("PRIVACY_MANIFEST", .when(traits: ["PrivacyManifest"])),
-                .define("EXTENDED_FEATURES", .when(traits: ["ExtendedFeatures"]))
+                .define("EXTENDED_FEATURES", .when(traits: ["ExtendedFeatures"])),
+                .define("ANALYTICS_ENABLED", .when(traits: ["Analytics"])),
+
+                // Performance optimization flags
+                .define("PERFORMANCE_MONITORING", .when(traits: ["Performance"])),
+                .unsafeFlags(["-O"], .when(traits: ["Performance"])),
+
+                // Combined trait conditions (multiple traits)
+                .define("FULL_FEATURE_SET", .when(traits: ["ExtendedFeatures", "Analytics"])),
+
+                // Platform + trait conditions
+                .define("IOS_PRIVACY_TRACKING", .when(platforms: [.iOS], traits: ["PrivacyManifest"])),
+
+                // Configuration-based conditionals
+                .define("DEBUG", .when(configuration: .debug)),
+                .define("RELEASE_BUILD", .when(configuration: .release))
             ]
         ),
         .testTarget(
             name: "PluginWithTraitsPluginTests",
             dependencies: ["PluginWithTraitsPlugin"],
-            path: "ios/Tests/PluginWithTraitsPluginTests")
+            path: "ios/Tests/PluginWithTraitsPluginTests",
+            swiftSettings: [
+                // Enable assertions in tests when DebugLogging trait is active
+                .define("ENABLE_TEST_ASSERTIONS", .when(traits: ["DebugLogging"]))
+            ]
+        )
     ]
 )
