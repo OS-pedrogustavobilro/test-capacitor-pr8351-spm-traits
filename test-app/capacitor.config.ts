@@ -7,7 +7,7 @@ const config: CapacitorConfig = {
   experimental: {
     ios: {
     spm: {
-      swiftToolsVersion: '6.1',
+      swiftToolsVersion: '6.2',
       packageTraits: {
         '@ospedrobilro/cap-plugin-with-traits': ['.defaults', 'ExtendedFeatures', 'Analytics'],
         '@capacitor/haptics': []
