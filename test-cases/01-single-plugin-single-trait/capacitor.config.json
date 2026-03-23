@@ -2,10 +2,15 @@
   "appId": "io.ionic.starter",
   "appName": "test-app",
   "webDir": "dist",
-  "ios": {
-    "spm": {
-      "packageTraits": {
-        "@capacitor/status-bar": ["PrivacyManifest"]
+  "experimental": {
+    "ios": {
+      "spm": {
+        "swiftToolsVersion": "6.1",
+        "packageTraits": {
+          "@capacitor/status-bar": [
+            "PrivacyManifest"
+          ]
+        }
       }
     }
   }
